@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* Custom animations and styling for Monopoly board */
+
+body {
+  margin: 0;
+  font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #0f172a;
+  color: #f8fafc;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar for chat and game logs */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #475569;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
+
+/* Pulse animation for current player's turn */
+@keyframes turn-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(59, 130, 246, 0.8);
+  }
+}
+
+.current-turn-active {
+  animation: turn-pulse 2s infinite;
+}
+
+/* Chicha gradient background option */
+.bg-chicha-gradient {
+  background: linear-gradient(135deg, #ec4899 0%, #f43f5e 50%, #eab308 100%);
+}
+
+.text-chicha-glow {
+  text-shadow: 0 0 10px rgba(236, 72, 153, 0.5), 0 0 20px rgba(234, 179, 8, 0.3);
+}
