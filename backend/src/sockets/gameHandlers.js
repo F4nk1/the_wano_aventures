@@ -143,6 +143,23 @@ function registerGameHandlers(io, socket) {
     io.to(roomCode).emit('gameUpdated', game);
   });
 
+  // Action: Pass Property -> Ignore and continue turn without auction
+  socket.on('passProperty', ({ roomCode }) => {
+    const game = activeGames.get(roomCode);
+    if (!game) return;
+
+    const currentPlayer = game.players[game.turnIndex];
+    if (currentPlayer.socketId !== socket.id) return;
+
+    if (game.currentPlayerAction !== 'buy_or_auction') return;
+
+    const currentTile = game.board.find(t => t.id === currentPlayer.position);
+    game.log.push(`COMPRA: ${currentPlayer.username} dejo pasar ${currentTile.name} sin subasta.`);
+
+    game.currentPlayerAction = null;
+    io.to(roomCode).emit('gameUpdated', game);
+  });
+
   // Action: Bid in Auction
   socket.on('placeBid', ({ roomCode, bidAmount }) => {
     const game = activeGames.get(roomCode);

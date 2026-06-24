@@ -40,6 +40,11 @@ export const CenterControls: React.FC = () => {
     socket.emit('declineProperty', { roomCode });
   };
 
+  const handlePassProperty = () => {
+    if (!socket || !roomCode) return;
+    socket.emit('passProperty', { roomCode });
+  };
+
   const handlePlaceBid = (e: React.FormEvent) => {
     e.preventDefault();
     if (!socket || !roomCode || !customBidAmount) return;
@@ -198,22 +203,31 @@ export const CenterControls: React.FC = () => {
                     </span>
                   )}
                 </p>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="flex flex-col gap-2 w-full">
+                  <div className="grid grid-cols-2 gap-2 w-full">
+                    <Button
+                      onClick={handleBuyProperty}
+                      variant="success"
+                      disabled={!!(selfObj && selfObj.cash < (selfObj.characterClass === 'emprendedor'
+                        ? Math.round((standingTile.price || 0) * 0.85)
+                        : (standingTile.price || 0)
+                      ))}
+                    >
+                      Comprar
+                    </Button>
+                    <Button
+                      onClick={handleDeclineProperty}
+                      variant="danger"
+                    >
+                      Subastar
+                    </Button>
+                  </div>
                   <Button
-                    onClick={handleBuyProperty}
-                    variant="success"
-                    disabled={!!(selfObj && selfObj.cash < (selfObj.characterClass === 'emprendedor'
-                      ? Math.round((standingTile.price || 0) * 0.85)
-                      : (standingTile.price || 0)
-                    ))}
+                    onClick={handlePassProperty}
+                    variant="secondary"
+                    fullWidth
                   >
-                    Comprar
-                  </Button>
-                  <Button
-                    onClick={handleDeclineProperty}
-                    variant="danger"
-                  >
-                    Subastar
+                    Dejar Pasar
                   </Button>
                 </div>
               </div>
