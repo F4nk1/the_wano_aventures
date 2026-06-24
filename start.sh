@@ -27,5 +27,5 @@ echo -e "${YELLOW}[!] Para jugar con tus amigos de forma remota, abre otra termi
 echo -e "    ${CYAN}cloudflared tunnel --url http://localhost:4000${NC}\n"
 
 # Iniciar servidor backend
-echo -e "${GREEN}[+] Levantando el servidor...${NC}"
+echo -e "${GREEN}[+] Levantando el servidor${NC}"
 cd backend && npm start
