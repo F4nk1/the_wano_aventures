@@ -6,7 +6,7 @@ Esta versión cuenta con una temática 100% peruana chicha y random, adaptada co
 
 ---
 
-## 🚀 Cómo Iniciar el Juego (Producción Rápida)
+## Cómo Iniciar el Juego (Producción Rápida)
 
 Para jugar de inmediato de forma unificada (el backend sirve tanto el API como la interfaz web en el puerto `4000`):
 
@@ -19,7 +19,7 @@ Para jugar de inmediato de forma unificada (el backend sirve tanto el API como l
 
 ---
 
-## 🌐 Cómo Jugar con Amigos Online (Cloudflare Tunnel)
+## Como Jugar con Amigos Online (Cloudflare Tunnel)
 
 Para que tus amigos puedan conectarse a tu ordenador sin necesidad de configurar redirección de puertos (Port Forwarding) ni exponer tu IP pública:
 
@@ -46,7 +46,7 @@ Para que tus amigos puedan conectarse a tu ordenador sin necesidad de configurar
 
 ---
 
-## 💻 Desarrollo (Hot Reloading)
+## Desarrollo (Hot Reloading)
 
 Si deseas modificar el código o desarrollar nuevas funcionalidades de manera cómoda:
 
@@ -66,7 +66,7 @@ npm run dev
 
 ---
 
-## 🎲 Características del Monopolio Chicha
+## Características del Monopolio Chicha
 
 * **Inicio (Go)**: "Paradero Inicial" (Cobras tus 200 soles de sueldo mínimo).
 * **Cárcel (Jail)**: "Comisaría" (Detenido por el Serenazgo o por chapa tu choro).
