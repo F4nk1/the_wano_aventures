@@ -1,4 +1,4 @@
-# Monopolio Peruano Random 🇵🇪 (Chicha Edition)
+# Monopolio Peruano Random (Chicha Edition)
 
 ¡Bienvenido! Este es un juego de Monopoly online y en tiempo real diseñado especialmente para jugar con tus amigos desde tu propio ordenador como servidor.
 

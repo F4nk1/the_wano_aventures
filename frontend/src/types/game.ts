@@ -5,8 +5,10 @@ export interface Player {
   position: number;
   inJail: boolean;
   jailTurns: number;
+  jailFreeCards: number;
   isBankrupt: boolean;
   color: string;
+  characterClass: 'emprendedor' | 'cobrador' | 'tramitador' | 'urraco' | 'organizador';
 }
 
 export interface Tile {
@@ -20,11 +22,36 @@ export interface Tile {
   mortgageValue?: number;
   description?: string;
   cost?: number;
-  
-  // Dynamic fields injected by the game loop
+  x: number;
+  y: number;
+  next: number[];
   owner: string | null;
   houses: number;
   mortgaged: boolean;
+}
+
+export interface AuctionState {
+  tileId: number;
+  highestBid: number;
+  highestBidder: string | null;
+  activeBidders: string[];
+  bidderIndex: number;
+}
+
+export interface TradeOffer {
+  sender: string;
+  receiver: string;
+  offerCash: number;
+  offerProperties: number[];
+  requestCash: number;
+  requestProperties: number[];
+}
+
+export interface CrisisEvent {
+  name: string;
+  text: string;
+  type: string;
+  remainingTurns: number;
 }
 
 export interface GameState {
@@ -38,12 +65,10 @@ export interface GameState {
   dice: [number, number];
   hasRolled: boolean;
   doubleRollCount: number;
-  currentPlayerAction: 'buy_or_auction' | 'jail_decision' | null;
+  currentPlayerAction: 'buy_or_auction' | 'auction_bidding' | null;
+  auction: AuctionState | null;
+  tradeOffer: TradeOffer | null;
+  activeCrisis: CrisisEvent | null;
+  rollCount: number;
   saved: boolean;
-}
-
-export interface ChatMessage {
-  username: string;
-  text: string;
-  timestamp: string;
 }

@@ -1,29 +1,29 @@
 const express = require('express');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { dbRun, dbGet } = require('./db');
+const { dbRun, dbGet } = require('../db/connection');
+const { JWT_SECRET } = require('../config/constants');
 
 const router = express.Router();
-const JWT_SECRET = process.env.JWT_SECRET || 'monopoly-secreto-perucho-123';
 
 // Register Endpoint
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return res.status(400).json({ error: 'Usuario y contraseña son requeridos.' });
+    return res.status(400).json({ error: 'Usuario y contrasena son requeridos.' });
   }
 
   const cleanUsername = username.trim().toLowerCase();
   if (cleanUsername.length < 3 || password.length < 4) {
-    return res.status(400).json({ error: 'El usuario debe tener al menos 3 caracteres y la contraseña al menos 4.' });
+    return res.status(400).json({ error: 'El usuario debe tener al menos 3 caracteres y la contrasena al menos 4.' });
   }
 
   try {
     // Check if user exists
     const existingUser = await dbGet('SELECT id FROM users WHERE username = ?', [cleanUsername]);
     if (existingUser) {
-      return res.status(400).json({ error: 'El nombre de usuario ya está registrado.' });
+      return res.status(400).json({ error: 'El nombre de usuario ya esta registrado.' });
     }
 
     // Hash password
@@ -48,7 +48,7 @@ router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return res.status(400).json({ error: 'Usuario y contraseña son requeridos.' });
+    return res.status(400).json({ error: 'Usuario y contrasena son requeridos.' });
   }
 
   const cleanUsername = username.trim().toLowerCase();
@@ -56,19 +56,19 @@ router.post('/login', async (req, res) => {
   try {
     const user = await dbGet('SELECT * FROM users WHERE username = ?', [cleanUsername]);
     if (!user) {
-      return res.status(400).json({ error: 'Usuario o contraseña incorrectos.' });
+      return res.status(400).json({ error: 'Usuario o contrasena incorrectos.' });
     }
 
     const isMatch = await bcrypt.compare(password, user.password_hash);
     if (!isMatch) {
-      return res.status(400).json({ error: 'Usuario o contraseña incorrectos.' });
+      return res.status(400).json({ error: 'Usuario o contrasena incorrectos.' });
     }
 
     // Generate JWT token
     const token = jwt.sign(
       { userId: user.id, username: user.username },
       JWT_SECRET,
-      { expiresIn: '7d' } // Long duration so they don't have to keep logging in during sessions
+      { expiresIn: '7d' }
     );
 
     res.json({
@@ -84,26 +84,4 @@ router.post('/login', async (req, res) => {
   }
 });
 
-// Auth Middleware to protect routes
-const authMiddleware = (req, res, next) => {
-  const token = req.headers['authorization']?.split(' ')[1];
-
-  if (!token) {
-    return res.status(401).json({ error: 'No autorizado. Token faltante.' });
-  }
-
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    req.userId = decoded.userId;
-    req.username = decoded.username;
-    next();
-  } catch (err) {
-    res.status(401).json({ error: 'Token inválido o expirado.' });
-  }
-};
-
-module.exports = {
-  router,
-  authMiddleware,
-  JWT_SECRET
-};
+module.exports = { router };

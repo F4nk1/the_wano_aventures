@@ -1,0 +1,66 @@
+@keyframes turn-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 2px rgba(233, 30, 140, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(233, 30, 140, 0.8);
+  }
+}
+
+.current-turn-active {
+  animation: turn-pulse 2s infinite;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slide-up 0.4s ease-out;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(233, 30, 140, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(233, 30, 140, 0.6);
+  }
+}
+
+.glow-pulse {
+  animation: glow-pulse 2s infinite;
+}
+
+@keyframes dice-spin {
+  0% { transform: rotate(0deg) scale(1); }
+  25% { transform: rotate(90deg) scale(1.1) translateY(-10px); }
+  50% { transform: rotate(180deg) scale(0.9) translateY(0px); }
+  75% { transform: rotate(270deg) scale(1.1) translateY(-5px); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+.animate-dice-spin {
+  animation: dice-spin 0.5s ease-out;
+}
+
+@keyframes token-pop {
+  0% { transform: scale(0.2); opacity: 0; }
+  50% { transform: scale(1.3); }
+  75% { transform: scale(0.9); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.animate-token-pop {
+  animation: token-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
